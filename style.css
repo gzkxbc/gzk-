@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#canvas {
+    /* VH是100%长度 */
+    height: 100vh;
+    border: 1px solid red;
+}

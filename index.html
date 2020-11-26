@@ -5,10 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+    <div id="canvas"></div>
+    <script>
+        canvas.onclick = (e) => {
+            // 获取鼠标在页面的位置。log（e）
+            console.log(e);
+            console.log(e.clientX);
+            console.log(e.clientY);
+            // log调试大法
+            // 这样会出现一个DIV
+            let div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.left = e.clientX + 'px';
+            div.style.top = e.clientY + 'px';
+            div.style.border = '1px solid red';
+            // 创建一个方形！
+            div.style.width = '6px';
+            div.style.height = '6px';
+            // 让圆点在中间！然后本来是margin-left的但是在JS中，这个.style后面的样式用-连起来的要用大写！比如说font-size,就要变成fontSize
+            div.style.marginLeft = '-3px';
+            div.style.marginTop = '-3px';
+            // 让方形变成圆形，且实心的！
+            div.style.borderRadius = '50%';
+            div.style.backgroundColor = 'red';
+            canvas.appendChild(div);
+        }
+    </script>
 </body>
 
 </html>
