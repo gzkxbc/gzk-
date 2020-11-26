@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
+    <!-- 这个获取body是行不通的
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight; -->
+</head>
+
+<body>
+    <canvas id="canvas" width="100" height="100"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas');
+        // 获取当前文档的宽高
+        canvas.width = document.documentElement.clientWidth;
+        canvas.height = document.documentElement.clientHeight;
+        // 一个变量获取canvas 2D位置
+        let ctx = canvas.getContext("2d");
+        // 颜色
+        ctx.fillStyle = "black";
+        ctx.strokeStyle = 'none';
+        // 监听是否变成手机
+        let isTouchDevice = 'ontouchstart' in document.documentElement;
+        // console.log(isTouchDevice);
+        // 判断手机 然后画线
+        if (isTouchDevice) {
+            canvas.ontouchmove = (e) => {
+                // 这样才能找到touch对象。
+                console.log(e);
+                let x = e.touches[0].clientX;
+                let y = e.touches[0].clientY;
+                console.log(x, y);
+                // 绘制矩形
+                // ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10);
+                // 让矩形变成圆形
+                ctx.beginPath();
+                // 数字从左往右是： X Y 半径 角度
+                ctx.arc(x, y, 10, 0, 2 * Math.PI)
+                ctx.stroke();
+                // 让圆变成实心
+                ctx.fill();
+            }
+
+            // console.log('没有什么');调试大法，发现有没有用
+        } else {
+            canvas.onmousedown = () => {
+                painting = true;
+            }
+
+            canvas.onmousemove = (e) => {
+                // 判断鼠标是否点击
+                if (painting === true) {
+                    // 绘制矩形
+                    // ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10);
+                    // 让矩形变成圆形
+                    ctx.beginPath();
+                    // 数字从左往右是： X Y 半径 角度
+                    ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI)
+                    ctx.stroke();
+                    // 让圆变成实心
+                    ctx.fill();
+                }
+                // 获取 鼠标当前位置
+                // console.log(e);
+                // console.log(e.clientX);
+                // console.log(e.clientY);
+                // // 10代表大小 -5代表位置 画矩形
+                // ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10);
+                canvas.onmouseup = () => {
+                    painting = false;
+                }
+            }
+        }
+        // 绘制一个矩形 数字的顺序意思为：起始X 起始Y 宽度 高度
+        // ctx.fillRect(20, 20, 66, 60);
+    </script>
+</body>
+
+</html>
